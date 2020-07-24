@@ -1,0 +1,138 @@
+ [
+      {
+        "key": "searchAccount",
+        "uri": "/bgs/account/exp/1.2/searchAccount",
+        "type": "POST"
+      },
+      {
+        "key": "accountInfo",
+        "uri": "/bgs/account/exp/1.2/accountInfo",
+        "type": "POST"
+      },
+      {
+        "key": "positionDetails",
+        "uri": "/bgs/position/exp/1.2/positionDetails",
+        "type": "POST"
+      },
+      {
+        "key": "optionSearch",
+        "uri": "/bgs/position/exp/1.2/optionSearch",
+        "type": "POST"
+      },
+      {
+        "key": "equitySearch",
+        "uri": "/bgs/position/exp/1.2/equitySearch",
+        "type": "POST"
+      },
+      {
+        "key": "fetchUserPreference",
+        "uri": "/bgs/user/preference/exp/1.2/fetchUserPreference",
+        "type": "POST"
+      },
+      {
+        "key": "saveUserPreference",
+        "uri": "/bgs/user/preference/exp/1.2/saveUserPreference",
+        "type": "POST"
+      },
+      {
+        "key": "currentDateTime",
+        "uri": "/bgs/core/exp/1.2/currentdatetime",
+        "type": "POST"
+      },
+      {
+        "key": "batchCheckTradeEdits",
+        "uri": "/bgs/tradeEdits/exp/1.1/batchCheckTradeEdits",
+        "type": "POST"
+      },
+      {
+        "key": "batchPlaceOrder",
+        "uri": "/bgs/place/order/exp/1.1/batchPlaceOrder",
+        "type": "POST"
+      },
+      {
+        "key": "pollPlaceOrder",
+        "uri": "/bgs/place/order/exp/1.1/pollPlaceOrder",
+        "type": "POST"
+      },
+      {
+        "key": "fetchTradeData",
+        "uri": "/bgs/core/exp/1.2/fetchTradeData",
+        "type": "GET"
+      },
+      {
+        "key": "refreshPosition",
+        "uri": "/bgs/position/exp/1.2/refreshPosition",
+        "type": "POST"
+      },
+      {
+        "key": "retrieveOrders",
+        "uri": "/bgs/ordermanagement/exp/1.1/retrieveOrders",
+        "type": "POST"
+      },
+      {
+        "key": "retrieveEditOrderDetails",
+        "uri": "/bgs/ordermanagement/exp/1.1/retrieveEditOrderDetails",
+        "type": "POST"
+      },
+      {
+        "key": "reviewAllocations",
+        "uri": "/bgs/allocations/exp/1.1/review",
+        "type": "POST"
+      },
+      {
+        "key": "allocateAllocations",
+        "uri": "/bgs/allocations/exp/1.1/allocate",
+        "type": "POST"
+      },
+      {
+        "key": "retrieveAllocationHistory",
+        "uri": "/bgs/allocations/exp/1.1/retrieveAllocationHistory",
+        "type": "POST"
+      },
+      {
+        "key": "retrieveExchanges",
+        "uri": "/bgs/core/exp/1.2/marketCenter",
+        "type": "GET"
+      },
+      {
+        "key": "searchSecurity",
+        "uri": "/bgs/position/exp/1.2/securitySearch",
+        "type": "POST"
+      },
+      {
+        "key": "retrieveAccountDetails",
+        "uri": "/bgs/account/exp/1.2/getAccountDetails",
+        "type": "POST"
+      },
+      {
+        "key": "editOrder",
+        "uri": "/bgs/place/order/exp/1.1/editOrder",
+        "type": "POST"
+      },
+      {
+        "key": "cancelOrder",
+        "uri": "/bgs/place/order/exp/1.1/cancelOrder",
+        "type": "POST"
+      },
+      {
+        "key": "singleCheckTradeEdit",
+        "uri": "/bgs/tradeEdits/exp/1.1/singleCheckTradeEdit",
+        "type": "POST"
+      },
+      {
+        "key": "ineligibleTradingdates",
+        "uri": "/bgs/core/exp/1.2/fetchIneligibleTradeDates",
+        "type": "POST"
+      },
+      {
+        "key": "omRetrieveExecutions",
+        "uri": "/bgs/ordermanagement/exp/1.1/retrieveExecutions",
+        "type": "POST"
+      },
+      {
+        "key": "omRetrieveAllocations",
+        "uri": "/bgs/ordermanagement/exp/1.1/retrieveAllocations",
+        "type": "POST"
+      }
+    ]
+  

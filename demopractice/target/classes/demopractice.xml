@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:tracking="http://www.mulesoft.org/schema/mule/ee/tracking" xmlns:batch="http://www.mulesoft.org/schema/mule/batch" xmlns:metadata="http://www.mulesoft.org/schema/mule/metadata" xmlns:validation="http://www.mulesoft.org/schema/mule/validation" xmlns:dw="http://www.mulesoft.org/schema/mule/ee/dw" xmlns:http="http://www.mulesoft.org/schema/mule/http" xmlns="http://www.mulesoft.org/schema/mule/core" xmlns:doc="http://www.mulesoft.org/schema/mule/documentation"
+	xmlns:spring="http://www.springframework.org/schema/beans" 
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-current.xsd
+http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/dw http://www.mulesoft.org/schema/mule/ee/dw/current/dw.xsd
+http://www.mulesoft.org/schema/mule/validation http://www.mulesoft.org/schema/mule/validation/current/mule-validation.xsd
+http://www.mulesoft.org/schema/mule/batch http://www.mulesoft.org/schema/mule/batch/current/mule-batch.xsd
+http://www.mulesoft.org/schema/mule/ee/tracking http://www.mulesoft.org/schema/mule/ee/tracking/current/mule-tracking-ee.xsd">
+    <http:listener-config name="HTTP_Listener_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Listener Configuration"/>
+    <http:request-config name="HTTP_Request_Configuration" host="0.0.0.0" port="8081" doc:name="HTTP Request Configuration"/>
+    <flow name="demopracticeFlow">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/demo" allowedMethods="GET,POST" doc:name="HTTP"/>
+        <logger level="INFO" doc:name="Logger" message="input  ********************* #[payload:java.lang.String]"/>
+            <!--  <dw:transform-message doc:name="Transform Message">
+       <dw:set-payload><![CDATA[%dw 1.0
+				%output application/json
+				
+               payload map ((obj,index) -> { 
+                   (obj - "key2")
+               })
+  
+
+		]]>
+		</dw:set-payload> 
+		 
+		
+        </dw:transform-message>-->
+        <set-payload  value="5" doc:name="Set Payload"/>
+       
+        
+        <choice doc:name="Choice">
+         <!-- <when expression="#[payload != @quot not a number@quot ">
+          <logger level="INFO" doc:name="Logger" message=" inside 1 output  ********************* #[payload:java.lang.String]"/>
+
+         </when> -->
+           <when expression="#[payload > 0]">
+          <logger level="INFO" doc:name="Logger" message=" inside 2 output  ********************* #[payload:java.lang.String]"/>
+
+         </when>
+          <when expression="#[(payload % 2) != 0]">
+          <logger level="INFO" doc:name="Logger" message=" inside 3 output  ********************* #[payload:java.lang.String]"/>
+
+         </when>
+          <otherwise>
+             <logger level="INFO" doc:name="Logger" message=" default output  ********************* #[payload:java.lang.String]"/>
+          </otherwise>
+        </choice>
+        
+    </flow>
+   <!--  <batch:job name="demopracticeBatch">
+        <batch:input>
+            <poll doc:name="Poll">
+                <fixed-frequency-scheduler frequency="10000" />
+                   <dw:transform-message doc:name="Transform Message">
+       <dw:set-payload><![CDATA[%dw 1.0
+				%output application/java
+				
+				               [1,2,3,4]
+
+		]]>
+		</dw:set-payload> 
+		 
+		
+        </dw:transform-message>
+            </poll>
+        </batch:input>
+        <batch:process-records>
+            <batch:step name="Batch_Step_1">
+                <set-payload doc:name="Set Payload step 1" value="#['Stepone' + payload]"/>
+                 <logger message="#[payload]   ******* in step 1" level="INFO" doc:name="Logger"/>
+            </batch:step>
+            <batch:step name="Batch_Step_2">
+                <set-payload doc:name="Set Payload step 2" value="#['Steptwo' + payload]"/>
+                 <logger message="#[payload]   ******* in step 2" level="INFO" doc:name="Logger"/>
+            </batch:step>
+        </batch:process-records>
+        <batch:on-complete>
+            <logger message="#[payload] ***** in complete" level="INFO" doc:name="Logger"/>
+        </batch:on-complete>
+    </batch:job>
+    
+     --><flow  name="demopracticeFlow2">
+    <http:listener config-ref="HTTP_Listener_Configuration" path="/demo2" allowedMethods="GET,POST" doc:name="HTTP"/>
+        <dw:transform-message doc:name="Transform Message" metadata:id="a6067282-20ad-4bf4-8aad-72f8dc1d4870">
+            <dw:input-payload doc:sample="input-data.json" mimeType="application/json"/>
+            <dw:set-payload><![CDATA[%dw 1.0
+%output application/xml
+---
+order : {
+    ( payload map  {
+     item : {
+    	key : $.key,
+    	uri: $.uri
+    }
+    })
+    
+    }
+    ]]></dw:set-payload>
+        </dw:transform-message>
+     
+    </flow>
+    
+    <flow name="asynctest">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/async" allowedMethods="GET" doc:name="HTTP"/>
+         <set-payload value="apple" doc:name="Set Payload"/>
+         <flow-ref name="banana" doc:name="Flow Reference"/>
+        <async doc:name="Async">
+         <http:request method="GET" path="/kiwi" config-ref="HTTP_Request_Configuration" doc:name="HTTP"/>
+        </async>
+        <logger level="INFO" message="#[payload] .... atlast" doc:name="Logger"/>
+    </flow>
+     <flow name="banana">
+         <set-payload value="banana" doc:name="Set Payload"/>
+         
+        
+    </flow>
+     <flow name="kiwi" processingStrategy="synchronous">
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/kiwi" allowedMethods="GET" doc:name="HTTP"/>
+         <set-payload value="kiei" doc:name="Set Payload"/>
+         <logger level="INFO" message="#[payload] .... in async flow" doc:name="Logger"/>
+    </flow>
+    
+     <flow name="foreachTest" >
+        <http:listener config-ref="HTTP_Listener_Configuration" path="/foreach" allowedMethods="GET" doc:name="HTTP"/>
+         <set-payload value="#[[1,2,3,4]]" doc:name="Set Payload"/>
+         <set-variable variableName="val" value="#[payload]" doc:name="Variable" />
+         <foreach collection="#[payload]" >
+              <set-payload  value="#['order' + flowVars.val]"/>
+         </foreach>
+         <logger level="INFO" message="#[flowVars.val] .... in async flow" doc:name="Logger"/>
+    </flow>
+    
+</mule>
